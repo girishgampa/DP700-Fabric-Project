@@ -5,6 +5,44 @@
 The Silver layer stores cleansed, standardized, and validated data from the Bronze layer. It prepares raw data for business analysis by applying data quality checks, standardization, and business transformations.
 
 ---
+---
+
+# Silver Layer Progress
+
+| Table | Status | Description |
+|--------|--------|-------------|
+| ✅ Customers | Completed | Cleaned customer data, standardized city names, preserved ZIP codes as strings, and validated customer uniqueness. |
+| ✅ Orders | Completed | Converted timestamps, created delivery KPIs, implemented delivery status logic, and validated business metrics. |
+| ✅ Order Items | Completed | Converted monetary columns to Decimal, converted shipping date to Timestamp, created total_item_cost, validated composite primary key, and performed data quality checks. |
+| ⏳ Products | Pending | Product attributes and dimension table transformations. |
+| ⏳ Payments | Pending | Payment methods and payment analytics. |
+| ⏳ Reviews | Pending | Customer review and satisfaction analysis. |
+| ⏳ Sellers | Pending | Seller information and performance analysis. |
+| ⏳ Categories | Pending | Product category standardization. |
+| ⏳ Geolocation | Pending | Customer and seller geographical data preparation. |
+
+---
+
+## Overall Progress
+
+**Completed:** 3 / 9 Silver Tables (33%)
+
+```text
+███████░░░░░░░░░░░░░░░░ 33%
+```
+
+### Completed
+- ✅ Customers
+- ✅ Orders
+- ✅ Order Items
+
+### Remaining
+- ⏳ Products
+- ⏳ Payments
+- ⏳ Reviews
+- ⏳ Sellers
+- ⏳ Categories
+- ⏳ Geolocation
 
 # Customers
 
