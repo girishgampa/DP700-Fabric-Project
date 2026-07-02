@@ -88,3 +88,40 @@ Repeated product_id values
 Instead of assuming duplicates, investigate the business meaning.
 
 This led us to understand how quantities are stored in this dataset.
+
+
+## Mistakes I Made
+
+### Customers
+
+- Used df instead of customers_df.
+
+Lesson:
+Always use descriptive DataFrame names.
+
+---
+
+### Orders
+
+- Forgot notebook variables disappear after restarting Spark.
+
+Lesson:
+Always rebuild DataFrames from Delta tables.
+
+---
+
+### Orders
+
+- Used incorrect timestamp format.
+
+Lesson:
+Always inspect sample data before parsing timestamps.
+
+---
+
+### Orders
+
+- Compared timestamps instead of dates.
+
+Lesson:
+Business rules are often different from technical implementations.
