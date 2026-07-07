@@ -51,160 +51,251 @@ Power BI
 - Relationships are implemented using a Star Schema.
 
 # Gold Layer Tables
-# Dimension Tables
+
+## Dimension Tables
 
 Dimension tables provide descriptive attributes used for filtering, grouping, and slicing business metrics in Power BI reports.
 
-1. dim_customer
+---
 
-The Customer Dimension stores customer-related information required for customer segmentation and geographical analysis.
+## 1. dim_customer
 
-Column	Description
-customer_id	Unique customer identifier
-customer_city	Customer city
-customer_state	Customer state
+The **Customer Dimension** stores customer-related information required for customer segmentation and geographical analysis.
 
-Purpose
+| Column | Description |
+|---------|-------------|
+| customer_id | Unique customer identifier |
+| customer_city | Customer city |
+| customer_state | Customer state |
 
-Analyze sales by customer location
-Customer segmentation
-Power BI slicers and filters
-2. dim_product
+### Business Purpose
 
-The Product Dimension contains descriptive information about products.
+- Analyze sales by customer location
+- Customer segmentation
+- Power BI slicers and filters
 
-Column	Description
-product_id	Unique product identifier
-product_category_name	Product category
-product_description_length	Description length
-product_photos_qty	Number of product images
-product_weight_g	Product weight
-product_length_cm	Product length
-product_height_cm	Product height
-product_width_cm	Product width
+---
 
-Purpose
+## 2. dim_product
 
-Product analysis
-Product performance reporting
-Revenue by product/category
-3. dim_category
+The **Product Dimension** contains descriptive information about products.
 
-Stores English translations for product categories.
+| Column | Description |
+|---------|-------------|
+| product_id | Unique product identifier |
+| product_category_name | Product category |
+| product_description_length | Product description length |
+| product_photos_qty | Number of product images |
+| product_weight_g | Product weight (grams) |
+| product_length_cm | Product length (cm) |
+| product_height_cm | Product height (cm) |
+| product_width_cm | Product width (cm) |
 
-Column	Description
-product_category_name	Original category
-product_category_name_english	English category
+### Business Purpose
 
-Purpose
+- Product analysis
+- Product performance reporting
+- Revenue by product/category
 
-Improve report readability
-Business-friendly category names
-4. dim_seller
+---
 
-Contains seller information.
+## 3. dim_category
 
-Column	Description
-seller_id	Unique seller identifier
-seller_city	Seller city
-seller_state	Seller state
+The **Category Dimension** stores English translations for product categories.
 
-Purpose
+| Column | Description |
+|---------|-------------|
+| product_category_name | Original category name |
+| product_category_name_english | English category name |
 
-Seller performance analysis
-Revenue by seller location
-5. dim_date
+### Business Purpose
 
-Calendar dimension created to support time intelligence and date-based reporting.
+- Improve report readability
+- Business-friendly category names
 
-Column	Description
-date	Calendar date
-day	Day of month
-day_name	Weekday name
-week	Week number
-month	Month number
-month_name	Month abbreviation
-quarter	Quarter
-year	Year
+---
 
-Purpose
+## 4. dim_seller
 
-Monthly revenue trends
-Year-over-Year analysis
-Time-based filtering
-Fact Tables
+The **Seller Dimension** contains seller information.
 
-Fact tables store measurable business transactions used to calculate KPIs and analytical metrics.
+| Column | Description |
+|---------|-------------|
+| seller_id | Unique seller identifier |
+| seller_city | Seller city |
+| seller_state | Seller state |
 
-1. fact_sales
+### Business Purpose
 
-The central fact table in the data warehouse.
+- Seller performance analysis
+- Revenue by seller location
 
-Each record represents one order item, making it the primary table for sales analysis.
+---
 
-# Key Columns
-Column	Description
-order_id	Order identifier
-order_item_id	Order item number
-customer_id	Customer identifier
-product_id	Product identifier
-seller_id	Seller identifier
-order_purchase_timestamp	Purchase timestamp
-order_purchase_date	Purchase date
-order_status	Original order status
-delivery_status	Formatted delivery status
-price	Product price
-freight_value	Shipping cost
-total_item_cost	Total item cost
-avg_review_score	Average review score per order
-review_count	Number of reviews
-order_approved_at	Approval timestamp
-order_delivered_carrier_date	Carrier delivery date
-order_delivered_customer_date	Customer delivery date
-order_estimated_delivery_date	Estimated delivery date
-shipping_limit_date	Shipping deadline
+## 5. dim_date
 
-# Business Purpose
+The **Date Dimension** supports time intelligence and date-based reporting.
 
-Revenue analysis
-Sales KPIs
-Delivery performance
-Customer analytics
-Product analytics
-Review analytics
-2. fact_payments
+| Column | Description |
+|---------|-------------|
+| date | Calendar date |
+| day | Day of month |
+| day_name | Day name |
+| week | Week number |
+| month | Month number |
+| month_name | Month abbreviation |
+| quarter | Quarter |
+| year | Year |
 
-Stores payment transaction information for each order.
+### Business Purpose
 
-Design Note: This table remains independent from fact_sales because a single order can contain multiple payment transactions. Connecting both fact tables would create a many-to-many relationship, so payment analysis is performed as a standalone fact table.
+- Monthly revenue analysis
+- Time intelligence
+- Year-over-Year reporting
+- Dashboard filtering
 
-Column	Description
-order_id	Order identifier
-payment_sequential	Payment sequence
-payment_type	Payment method
-payment_installments	Number of installments
-payment_value	Payment amount
+---
 
-# Business Purpose
+# Fact Tables
 
-Payment method distribution
-Installment analysis
-Payment value reporting
-3. fact_reviews
+Fact tables store measurable business transactions used for KPIs and analytical reporting.
 
-Stores customer review information.
+---
 
-Although review metrics are aggregated into fact_sales for interactive reporting, the original review fact table is retained for detailed review analysis.
+## 1. fact_sales
 
-Column	Description
-review_id	Review identifier
-order_id	Order identifier
-review_score	Customer rating
-review_creation_date	Review creation date
-review_answer_timestamp	Seller response timestamp
+The **Sales Fact Table** is the central fact table in the warehouse.
 
-# Business Purpose
+Each record represents **one order item**, making it the primary table for sales analytics.
 
-Customer satisfaction analysis
-Review trends
-Review quality reporting
+### Key Columns
+
+| Column | Description |
+|---------|-------------|
+| order_id | Order identifier |
+| order_item_id | Order item number |
+| customer_id | Customer identifier |
+| product_id | Product identifier |
+| seller_id | Seller identifier |
+| order_purchase_timestamp | Purchase timestamp |
+| order_purchase_date | Purchase date |
+| order_status | Original order status |
+| delivery_status | Formatted delivery status |
+| price | Product price |
+| freight_value | Shipping cost |
+| total_item_cost | Total item cost (Price + Freight) |
+| avg_review_score | Average review score per order |
+| review_count | Number of reviews |
+| order_approved_at | Approval timestamp |
+| order_delivered_carrier_date | Carrier delivery date |
+| order_delivered_customer_date | Customer delivery date |
+| order_estimated_delivery_date | Estimated delivery date |
+| shipping_limit_date | Shipping deadline |
+
+### Business Purpose
+
+- Revenue analysis
+- Sales KPIs
+- Customer analytics
+- Product analytics
+- Delivery performance
+- Review analysis
+
+---
+
+## 2. fact_payments
+
+The **Payments Fact Table** stores payment transaction information.
+
+> **Design Note**
+>
+> This table remains independent from `fact_sales` because a single order can contain multiple payment transactions. Connecting both fact tables would introduce a many-to-many relationship, so payment analytics are performed separately.
+
+| Column | Description |
+|---------|-------------|
+| order_id | Order identifier |
+| payment_sequential | Payment sequence |
+| payment_type | Payment method |
+| payment_installments | Number of installments |
+| payment_value | Payment amount |
+
+### Business Purpose
+
+- Payment method distribution
+- Installment analysis
+- Payment reporting
+
+---
+
+## 3. fact_reviews
+
+The **Reviews Fact Table** stores customer review information.
+
+Although review metrics are aggregated into `fact_sales` for interactive reporting, the original review fact table is retained for detailed review analysis.
+
+| Column | Description |
+|---------|-------------|
+| review_id | Review identifier |
+| order_id | Order identifier |
+| review_score | Customer rating |
+| review_creation_date | Review creation date |
+| review_answer_timestamp | Seller response timestamp |
+
+### Business Purpose
+
+- Customer satisfaction analysis
+- Review trends
+- Review quality reporting
+
+---
+
+# Star Schema
+
+The Gold layer follows a **Star Schema** optimized for analytical workloads and Power BI reporting.
+
+```text
+                    dim_customer
+                          │
+                    dim_seller
+                          │
+dim_category ── dim_product ──┐
+                              │
+                         fact_sales
+                              │
+                          dim_date
+
+fact_payments (Standalone Fact)
+
+fact_reviews (Source for Review Aggregation)
+```
+
+---
+
+# Power BI Integration
+
+The Gold layer serves as the source for the **Microsoft Fabric Semantic Model** and the **Power BI Executive Dashboard**.
+
+Business users can analyze:
+
+- 📈 Revenue trends
+- 💰 Sales performance
+- 📦 Product category performance
+- 👥 Customer insights
+- 🏪 Seller performance
+- ⭐ Customer reviews
+- 🚚 Delivery performance
+- 💳 Payment method distribution
+
+---
+
+## Gold Layer Summary
+
+✔️ Business-ready dimensional model
+
+✔️ Star Schema implementation
+
+✔️ Optimized for Microsoft Fabric Semantic Model
+
+✔️ Interactive Power BI reporting
+
+✔️ Supports KPI generation and executive dashboards
