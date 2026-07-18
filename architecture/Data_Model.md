@@ -27,7 +27,6 @@ The analytical model consists of:
 - **dim_product**
 - **dim_category**
 - **dim_seller**
-- **dim_geography**
 - **dim_date**
 
 ---
@@ -47,10 +46,7 @@ dim_customer ── fact_sales ── dim_product
                      │
                      │
                dim_seller
-                     │
-                     │
-             dim_geography
-
+                     
 
                  fact_payments
                       │
@@ -91,10 +87,11 @@ The semantic model is built using one-to-many relationships between dimensions a
 | dim_product | fact_sales | One-to-Many |
 | dim_category | dim_product | One-to-Many |
 | dim_seller | fact_sales | One-to-Many |
-| dim_geography | dim_customer | One-to-Many |
 | dim_date | fact_sales | One-to-Many |
 
 The **fact_payments** table remains independent and is used specifically for payment-related analysis.
+
+> **Note:** The `fact_reviews` table is retained in the semantic model for reference and future analytical use cases. Current reporting uses the aggregated review metrics (`avg_review_score` and `review_count`) stored in `fact_sales`, so `fact_reviews` is hidden from report view.
 
 ---
 
