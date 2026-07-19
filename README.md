@@ -1,4 +1,8 @@
 # 🚀 End-to-End Microsoft Fabric Data Engineering Project
+![Microsoft Fabric](https://img.shields.io/badge/Microsoft%20Fabric-Data%20Engineering-0078D4?logo=microsoftazure&logoColor=white)
+![PySpark](https://img.shields.io/badge/PySpark-Data%20Processing-E25A1C?logo=apachespark&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power%20BI-Dashboards-F2C811?logo=powerbi&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 > An end-to-end Data Engineering solution built using **Microsoft Fabric**, **PySpark**, **Delta Lake**, **Medallion Architecture**, **Semantic Models**, and **Power BI** to transform raw e-commerce data into business-ready analytics.
 
