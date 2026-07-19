@@ -1,8 +1,6 @@
 [⬅ Back to Architecture](README.md) | [🏠 Main Project](../README.md)
 
 # Data Model
-...
-# Data Model
 
 ## Overview
 
